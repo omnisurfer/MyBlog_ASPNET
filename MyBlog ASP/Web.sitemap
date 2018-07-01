@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="~/" title="Home"  description="Home">
+    <siteMapNode url="~/Default.aspx" title="home"  description="Go to the homepage" />
+
+    <siteMapNode url="~/About/" title="about" description="About Daniel" >
+      <siteMapNode url="~/About/Default.aspx" title="me" description="About Daniel"/>
+      <siteMapNode url="~/About/ContactMe.aspx" title="contact" description="Contact Daniel"/>
+    </siteMapNode>
+
+    <siteMapNode url="~/Guestbook/" title="guestbook" description="Sign my guest book">
+      <siteMapNode url="~/Guestbook/Default.aspx" title="view" description="View the guestbook" />
+      <siteMapNode url="~/Guestbook/SignGuestbook.aspx" title="sign" description="Sign the guestbook"/>
+    </siteMapNode>
+    
+    <siteMapNode url="~/Projects/" title="projects"  description="About the projects I am working on" >
+      <siteMapNode url="~/Projects/Default.aspx" title="active" description="All active projects"/>
+      <siteMapNode url="~/Projects/Archived.aspx" title="archived" description="All archived projects"/>
+    </siteMapNode>
+
+    <siteMapNode url="~/MyPics/" title="pics" description="All my pics for Skynet">
+      <siteMapNode url="~/MyPics/Default.aspx" title="mine" description="All my pics"/>
+      <siteMapNode url="~/MyPics/OtherPics.aspx" title="other" description="Pics of stuff found on the web"/>
+    </siteMapNode>
+    
+    <!--<siteMapNode url="~/Login.aspx" title="Login" description="Login to Site Backend" />-->
+
+  </siteMapNode>
+</siteMap>
+
+

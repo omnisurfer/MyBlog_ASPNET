@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbMyBlogModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="dbMyBlogModelStoreContainer">
+          <EntitySet Name="BlogContributors" EntityType="dbMyBlogModel.Store.BlogContributors" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BlogEntry" EntityType="dbMyBlogModel.Store.BlogEntry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FeedEntry" EntityType="dbMyBlogModel.Store.FeedEntry" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_BlogEntry_BlogContributors" Association="dbMyBlogModel.Store.FK_BlogEntry_BlogContributors">
+            <End Role="BlogContributors" EntitySet="BlogContributors" />
+            <End Role="BlogEntry" EntitySet="BlogEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeedEntry_BlogContributors" Association="dbMyBlogModel.Store.FK_FeedEntry_BlogContributors">
+            <End Role="BlogContributors" EntitySet="BlogContributors" />
+            <End Role="FeedEntry" EntitySet="FeedEntry" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BlogContributors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="OwnerURL" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="UserGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerImageURL" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BlogEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Summary" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="URL" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Keywords" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BodyText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CommentsEnabled" Type="bit" Nullable="false" />
+          <Property Name="Publish" Type="bit" Nullable="false" />
+          <Property Name="OwnerID" Type="int" Nullable="false" />
+          <Property Name="TextFilePointer" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FeedEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="FeedText" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="OwnerID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BlogEntry_BlogContributors">
+          <End Role="BlogContributors" Type="dbMyBlogModel.Store.BlogContributors" Multiplicity="1" />
+          <End Role="BlogEntry" Type="dbMyBlogModel.Store.BlogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogContributors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BlogEntry">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeedEntry_BlogContributors">
+          <End Role="BlogContributors" Type="dbMyBlogModel.Store.BlogContributors" Multiplicity="1" />
+          <End Role="FeedEntry" Type="dbMyBlogModel.Store.FeedEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogContributors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FeedEntry">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbMyBlogModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbMyBlogEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="BlogContributors" EntityType="dbMyBlogModel.BlogContributor" />
+          <EntitySet Name="BlogEntries" EntityType="dbMyBlogModel.BlogEntry" />
+          <EntitySet Name="FeedEntries" EntityType="dbMyBlogModel.FeedEntry" />
+          <AssociationSet Name="FK_BlogEntry_BlogContributors" Association="dbMyBlogModel.FK_BlogEntry_BlogContributors">
+            <End Role="BlogContributors" EntitySet="BlogContributors" />
+            <End Role="BlogEntry" EntitySet="BlogEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeedEntry_BlogContributors" Association="dbMyBlogModel.FK_FeedEntry_BlogContributors">
+            <End Role="BlogContributors" EntitySet="BlogContributors" />
+            <End Role="FeedEntry" EntitySet="FeedEntries" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BlogContributor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="OwnerURL" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="UserGroup" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="OwnerImageURL" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="BlogEntries" Relationship="dbMyBlogModel.FK_BlogEntry_BlogContributors" FromRole="BlogContributors" ToRole="BlogEntry" />
+          <NavigationProperty Name="FeedEntries" Relationship="dbMyBlogModel.FK_FeedEntry_BlogContributors" FromRole="BlogContributors" ToRole="FeedEntry" />
+        </EntityType>
+        <EntityType Name="BlogEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Summary" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="URL" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="Keywords" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="BodyText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" Nullable="false" />
+          <Property Name="CommentsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Publish" Type="Boolean" Nullable="false" />
+          <Property Name="OwnerID" Type="Int32" Nullable="false" />
+          <Property Name="TextFilePointer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="BlogContributor" Relationship="dbMyBlogModel.FK_BlogEntry_BlogContributors" FromRole="BlogEntry" ToRole="BlogContributors" />
+        </EntityType>
+        <EntityType Name="FeedEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FeedText" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="OwnerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BlogContributor" Relationship="dbMyBlogModel.FK_FeedEntry_BlogContributors" FromRole="FeedEntry" ToRole="BlogContributors" />
+        </EntityType>
+        <Association Name="FK_BlogEntry_BlogContributors">
+          <End Role="BlogContributors" Type="dbMyBlogModel.BlogContributor" Multiplicity="1" />
+          <End Role="BlogEntry" Type="dbMyBlogModel.BlogEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogContributors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BlogEntry">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeedEntry_BlogContributors">
+          <End Role="BlogContributors" Type="dbMyBlogModel.BlogContributor" Multiplicity="1" />
+          <End Role="FeedEntry" Type="dbMyBlogModel.FeedEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogContributors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FeedEntry">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbMyBlogModelStoreContainer" CdmEntityContainer="dbMyBlogEntities">
+          <EntitySetMapping Name="BlogContributors">
+            <EntityTypeMapping TypeName="dbMyBlogModel.BlogContributor">
+              <MappingFragment StoreEntitySet="BlogContributors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="OwnerURL" ColumnName="OwnerURL" />
+                <ScalarProperty Name="UserGroup" ColumnName="UserGroup" />
+                <ScalarProperty Name="OwnerImageURL" ColumnName="OwnerImageURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlogEntries">
+            <EntityTypeMapping TypeName="dbMyBlogModel.BlogEntry">
+              <MappingFragment StoreEntitySet="BlogEntry">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
+                <ScalarProperty Name="CommentsEnabled" ColumnName="CommentsEnabled" />
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="TextFilePointer" ColumnName="TextFilePointer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedEntries">
+            <EntityTypeMapping TypeName="dbMyBlogModel.FeedEntry">
+              <MappingFragment StoreEntitySet="FeedEntry">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="FeedText" ColumnName="FeedText" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

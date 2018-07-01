@@ -1,0 +1,89 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MyBlogMaster.master.cs" Inherits="MasterPages_MyBlogMaster" %>
+
+<%@ Register Src="~/Controls/MonthYearSelector.ascx" TagPrefix="uc1" TagName="MonthYearSelector" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>The Grindstone Knows</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        No content in header
+    </asp:ContentPlaceHolder>
+
+    <!--add modernizr script-->
+    <script src="/Scripts/modernizr-2.6.2.js"></script>
+    <script src="../Scripts/jquery-2.0.0.min.js"></script>
+
+</head>
+<body>
+    <form id="main_form" runat="server">
+        <!--Placing this in master for now but may want to detect if it is needed in code behind-->
+        <asp:ScriptManager ID="ScriptManager" EnablePageMethods="true" runat="server">
+            <Scripts>
+                <asp:ScriptReference Name="jquery" />
+            </Scripts>
+        </asp:ScriptManager>
+        <div id="PageWrapper">
+            <header>
+                <h1>The Grindstone Knows</h1>
+            </header>
+            <section id="nav">
+                <asp:Menu ID="Menu" runat="server" CssClass="MainMenu" DataSourceID="MyBlogSitemap" Orientation="Horizontal" StaticEnableDefaultPopOutImage="False">
+                </asp:Menu>
+                <br />
+                <asp:SiteMapDataSource ID="MyBlogSitemap" runat="server" ShowStartingNode="False" />
+            </section>
+
+            <section id="MainContent">
+                <asp:ContentPlaceHolder ID="cpMainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </section>
+
+            <aside id="FeedContent">
+                <asp:ContentPlaceHolder ID="cpFeedContent" runat="server">
+                    <p>
+                        <span class="SmallTimeStamp">August 29th, 2013 @ 0988</span>
+                        <br />
+                        Doing stuff     
+                    </p>
+
+                    <p>
+                        <span class="SmallTimeStamp">August 29th, 2013 @ 0988</span>
+                        <br />
+                        Doing more stuff                     
+                    </p>
+
+                    <p>
+                        <span class="SmallTimeStamp">August 29th, 2013 @ 0988</span>
+                        <br />
+                        Doing very much more stuff       
+                    </p>
+
+                    <p>
+                        <span class="SmallTimeStamp">August 29th, 2013 @ 0988</span>
+                        <br />
+                        Doing ajjjj stuff                     
+                    </p>
+
+                    <p>
+                        <span class="SmallTimeStamp">August 29th, 2013 @ 0988</span>
+                        <br />
+                        Doing fdfdfdf stuff                   
+                    </p>
+
+                </asp:ContentPlaceHolder>
+            </aside>
+
+            <aside id="BlogEntryMonthYearSelect">
+                <uc1:MonthYearSelector runat="Server" ID="MonthYearSelector" />                
+            </aside>
+
+            <footer>
+                <span style="display: block; float: right; width: auto; margin-left: 10px; margin-right: 10px">
+                    <asp:HyperLink ID="login" NavigateUrl="~/Management/Login.aspx" runat="server">login</asp:HyperLink></span>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>
